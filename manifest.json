@@ -1,11 +1,11 @@
 {
-  "name": "Theme.json creator",
-  "id": "1149981493657457575",
+  "name": "theme-json-compiler",
+  "id": "1150162954783719547",
   "api": "1.0.0",
-  "main": "src/code.js",
+  "main": "dist/backend/index.js",
   "editorType": [
     "figma",
     "figjam"
   ],
-  "ui": "src/ui.html"
+  "ui": "dist/frontend/index.html"
 }

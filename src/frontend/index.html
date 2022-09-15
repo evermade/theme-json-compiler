@@ -1,0 +1,90 @@
+<style>
+  main {
+    font-family: sans-serif;
+    color: var(--figma-color-text);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  textarea,
+  button,
+  [download] {
+    border-radius: 4px;
+    padding: 0.5rem;
+    border: 0;
+  }
+
+  textarea {
+    background-color: var(--figma-color-bg-secondary);
+    color: var(--figma-color-text-secondary);
+    font-family: monospace;
+    font-size: 0.8rem;
+    width: 100%;
+    resize: none;
+    flex: 1;
+  }
+
+  button {
+    background: var(--figma-color-bg-brand);
+    color: var(--figma-color-text-onbrand);
+  }
+
+  button:hover {
+    background: var(--figma-color-bg-brand-hover);
+  }
+
+  menu {
+    display: flex;
+    gap: 0.5rem;
+	padding: 0;
+	margin: 0;
+  }
+
+  menu > * {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  [download] {
+    background: var(--figma-color-bg-success);
+    color: var(--figma-color-text-onsuccess);
+    text-decoration: none;
+  }
+
+  [download][href]:hover {
+    background: var(--figma-color-bg-success-hover);
+  }
+
+  [download]:not([href]) {
+    cursor: not-allowed;
+    background: var(--figma-color-bg-disabled);
+    color: var(--figma-color-text-ondisabled);
+  }
+</style>
+
+<main>
+  <textarea id="textarea" readonly></textarea>
+  <menu>
+    <button id="compile">Compile</button>
+    <a id="download" download="theme.json">Download</a>
+  </menu>
+</main>
+
+<script>
+  document.getElementById("compile").onclick = () => {
+    parent.postMessage({ pluginMessage: "compile" }, "*");
+  };
+
+  onmessage = (event) => {
+    const themejson = JSON.stringify(event.data.pluginMessage, null, 2);
+    document.getElementById("textarea").value = themejson;
+
+    const blob = new Blob([themejson], { type: "application/json" });
+    document.getElementById("download").href = window.URL.createObjectURL(blob);
+  };
+</script>

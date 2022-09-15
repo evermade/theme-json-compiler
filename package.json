@@ -1,16 +1,26 @@
 {
-  "name": "Themejson-creator",
+  "name": "theme-json-compiler",
   "version": "1.0.0",
-  "description": "Your Figma Plugin",
-  "main": "src/code.js",
+  "description": "Compile theme.json from Figma tokens",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "watch": "npm run build -- --watch"
+    "build": "parcel build --no-source-maps"
   },
-  "author": "",
+  "author": "antti.sartjarvi@evermade.fi",
   "license": "",
+  "targets": {
+    "frontend": {
+      "source": "src/frontend/index.html"
+    },
+    "backend": {
+      "source": "src/backend/index.ts"
+    },
+    "options": {
+      "outputFormat": "global"
+    }
+  },
   "devDependencies": {
     "@figma/plugin-typings": "^1.51.0",
+    "parcel": "^2.7.0",
     "typescript": "*"
   }
 }
